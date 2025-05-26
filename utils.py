@@ -1,16 +1,13 @@
+import io
 from docx import Document
 from datetime import datetime
-import io
 
 def generate_docx(name, age, gender, symptoms, activity, exposure, smoking, hrv):
-    """
-    Build a Word (.docx) report and return as bytes.
-    """
     doc = Document()
-    doc.add_heading('AMAL Radiology Report', 0)
+    doc.add_heading('AMAL Radiology Report', level=0)
     doc.add_paragraph(f'Date: {datetime.today().strftime("%Y-%m-%d")}')
     doc.add_paragraph(f'Patient Name: {name}')
-    doc.add_paragraph(f'Age: {age}   Gender: {gender}')
+    doc.add_paragraph(f'Age: {age}    Gender: {gender}')
     doc.add_heading('Clinical Information', level=1)
     doc.add_paragraph(f'Symptoms: {symptoms or "N/A"}')
     doc.add_paragraph(f'Physical Activity: {activity}')
@@ -22,7 +19,7 @@ def generate_docx(name, age, gender, symptoms, activity, exposure, smoking, hrv)
     doc.add_heading('Recommendations', level=1)
     doc.add_paragraph('- Correlate clinically.')
     doc.add_paragraph('- Consider antibiotic therapy and treatment.')
-
     buf = io.BytesIO()
     doc.save(buf)
     return buf.getvalue()
+    
