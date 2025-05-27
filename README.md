@@ -1,17 +1,10 @@
-# AMAL Prototype v2
+# AMAL Premium Prototype
 
-A two-page, pink-luxury AI radiology assistant built with Streamlit.
-
-## Deployment Files
-
-- `amal_app.py`
-- `utils.py`
-- `requirements.txt`
-- `logo.png`
-
-## Deployment Steps
-
-1. Ensure these files are in the root of your GitHub repo.
-2. Commit and push to the `main` branch.
-3. On Streamlit Cloud, set the Main file path to `amal_app.py`.
-4. Click **Deploy**.
+This is a premium, two-page Streamlit app for respiratory disease diagnosis.  
+## Pages
+- Home (big AMAL, pink card, button)
+- Diagnosis (patient info, file upload, fake heatmap, Word report)
+## How to run
+1. pip install -r requirements.txt
+2. streamlit run amal_app.py
+3. Or upload to Streamlit Cloud.
