@@ -22,4 +22,3 @@ def generate_docx(name, age, gender, symptoms, activity, exposure, smoking, hrv)
     buf = io.BytesIO()
     doc.save(buf)
     return buf.getvalue()
-    
