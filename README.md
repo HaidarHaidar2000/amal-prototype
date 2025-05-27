@@ -1,17 +1,18 @@
-# AMAL Prototype v2
+# AMAL Prototype v3
 
 A two-page, pink-luxury AI radiology assistant built with Streamlit.
 
-## Deployment Files
-- amal_app.py  
-- utils.py  
-- requirements.txt  
-- logo.png  
+## Files
 
-## Deployment Steps
-1. Delete all other files in your repo (e.g., old `*.py`, duplicates).  
-2. Add these files to the root of your GitHub repo.  
+- **amal_app.py**  
+- **utils.py**  
+- **requirements.txt**  
+- **logo.png**  
+
+## Deployment
+
+1. Delete all other files in your repo.  
+2. Add these five to the root, exactly as named.  
 3. Commit & push to the `main` branch.  
-4. On Streamlit Cloud, set **Main file path** to `amal_app.py`.  
-5. Click **Deploy**.  
-6. Wait a minute, then open your custom `.streamlit.app` URL.
+4. In Streamlit Cloud, set **Main file path** → `amal_app.py`.  
+5. Click **Deploy**, then open your `.streamlit.app` URL.
