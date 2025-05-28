@@ -4,7 +4,7 @@ import numpy as np
 
 st.set_page_config(page_title="AMAL – LungCare AI", layout="centered")
 
-# CSS for a premium, clean look
+# CSS for premium look
 st.markdown("""
 <style>
 body { background: #fff5f9; }
@@ -61,33 +61,26 @@ body { background: #fff5f9; }
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
 """, unsafe_allow_html=True)
 
+# Page routing with session state
 if "page" not in st.session_state:
     st.session_state.page = "home"
 
 def go_to_diagnosis():
     st.session_state.page = "diagnosis"
 
-# Home Page
+# HOME PAGE
 if st.session_state.page == "home":
     st.markdown("""
     <div class="big-card">
         <div class="amal-title">AMAL</div>
         <div class="amal-subtitle">Cutting-edge tools for the diagnosis and management of respiratory diseases.</div>
-        <form action="" method="post">
-            <button class="start-btn" name="diagnose" type="submit" formnovalidate>Start Diagnosis</button>
-        </form>
     </div>
     """, unsafe_allow_html=True)
-    if st.session_state.get("diagnose") or st.form_submit_button("diagnose"):
+    if st.button("Start Diagnosis", key="start", help="Go to diagnosis page", use_container_width=True):
         st.session_state.page = "diagnosis"
         st.experimental_rerun()
 
-# Handle POST from the HTML form on "Start Diagnosis"
-if st.session_state.page == "home" and "diagnose" in st.experimental_get_query_params():
-    st.session_state.page = "diagnosis"
-    st.experimental_rerun()
-
-# Diagnosis Page
+# DIAGNOSIS PAGE
 if st.session_state.page == "diagnosis":
     st.markdown('<div class="input-card">', unsafe_allow_html=True)
     st.header("Patient Information")
@@ -108,14 +101,16 @@ if st.session_state.page == "diagnosis":
             st.stop()
         img = Image.open(uploaded).convert("RGB").resize((512,512))
         st.image(img, caption="Original Chest X-ray", use_column_width=True)
+        # Simulated heatmap
         x = np.linspace(-1,1,512); y = np.linspace(-1,1,512)
         xv, yv = np.meshgrid(x,y)
         blob = np.exp(-((xv+0.3)**2 + (yv+0.3)**2)*8)
         blob /= blob.max()
         heat = (blob*255).astype(np.uint8)
-        overlay = np.array(img) * 0.6
+        overlay = np.array(img).astype(float) * 0.6
         overlay[:,:,0] = np.clip(overlay[:,:,0] + heat*0.4, 0, 255)
         st.image(overlay.astype(np.uint8), caption="AI Attention Heatmap", use_column_width=True)
         st.success("**Diagnosis:** Pneumonia Detected")
         st.markdown("**Explanation:** Highlighted regions show consolidation.")
     st.markdown('</div>', unsafe_allow_html=True)
+    st.button("Back to Home", key="back", on_click=lambda: st.session_state.update(page="home"))
